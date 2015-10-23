@@ -81,6 +81,9 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("InfinityTeleOp", InfinityTeleOp.class);
 
+    //res-q teleop
+    manager.register("ResQTeleop", ResQTeleOp1.class);
+
    // manager.register("K9TeleOp", K9TeleOp.class);
    // manager.register("K9IrSeeker", K9IrSeeker.class);
    // manager.register("K9Line", K9Line.class);
