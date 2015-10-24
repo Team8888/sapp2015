@@ -53,6 +53,11 @@ public class ResQTeleOp1 extends OpMode {
 
 
     int numOpLoops = 1;
+  boolean vertOnly = false;
+  boolean crawlMode = false;
+  float direction;
+  float right;
+  float left;
 
   /*
    * Code to run when the op mode is first enabled goes here
@@ -85,13 +90,29 @@ public class ResQTeleOp1 extends OpMode {
     // WRITE_ONLY mode or SWITCHING_TO_WRITE_MODE
     if (allowedToWrite()) {
 
+      vertOnly = gamepad1.right_bumper;
+      crawlMode = gamepad1.left_bumper;
+
         // ----------------- Driving -------------------
       // throttle:  left_stick_y ranges from -1 to 1, where -1 is full up,  and 1 is full down
       // direction: left_stick_x ranges from -1 to 1, where -1 is full left and 1 is full right
       float throttle = -gamepad1.left_stick_y;
-      float direction = gamepad1.left_stick_x;
-      float right = throttle - direction;
-      float left = throttle + direction;
+
+      if (vertOnly == false) {
+        direction = gamepad1.left_stick_x;
+      }
+      if (crawlMode == false)
+      {
+        right = throttle - direction;
+        left = throttle + direction;
+      }
+      else
+      {
+        right = throttle - (direction / 1.33f);
+        left = throttle + (direction / 1.33f);
+      }
+
+
 
       // clip the right/left values so that the values never exceed +/- 1
       right = Range.clip(right, -1, 1);
