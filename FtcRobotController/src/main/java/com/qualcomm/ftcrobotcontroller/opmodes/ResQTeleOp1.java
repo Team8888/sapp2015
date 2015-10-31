@@ -101,16 +101,10 @@ public class ResQTeleOp1 extends OpMode {
       if (vertOnly == false) {
         direction = gamepad1.left_stick_x;
       }
-      if (crawlMode == false)
-      {
+
         right = throttle - direction;
-        left = throttle + direction;
-      }
-      else
-      {
-        right = throttle - (direction / 1.33f);
-        left = throttle + (direction / 1.33f);
-      }
+        left = throttle + direction;}
+
 
 
 
@@ -124,14 +118,17 @@ public class ResQTeleOp1 extends OpMode {
       left = (float) scaleInput(left);
 
       // write the values to the motors
+    if (crawlMode == false){
       motorRight.setPower(right);
       motorLeft.setPower(left);
-
-
-
-
+    }
+    else
+    {
+      motorRight.setPower(right / 2);
+      motorLeft.setPower(left / 2);
     }
   }
+
 
   // If the device is in either of these two modes, the op mode is allowed to write to the HW.
   private boolean allowedToWrite(){
@@ -144,8 +141,8 @@ public class ResQTeleOp1 extends OpMode {
 	 * the robot more precisely at slower speeds.
 	 */
   double scaleInput(double dVal)  {
-    double[] scaleArray = { 0.0, 0.02, 0.05, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24,
-            0.30, 0.33, 0.36, 0.40, 0.43, 0.47, 0.50 };
+    double[] scaleArray = { 0.0, 0.05, 0.09, 0.10, 0.12, 0.15, 0.18, 0.24,
+            0.30, 0.36, 0.43, 0.50, 0.60, 0.72, 0.85, 1.00, 1.00 };
 
     // get the corresponding index for the scaleInput array.
     int index = (int) (dVal * 16.0);
